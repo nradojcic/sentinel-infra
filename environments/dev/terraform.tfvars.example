@@ -1,0 +1,6 @@
+namespace      = "sentinel-system"
+server_image   = "sentinel-server:dev"
+agent_image    = "sentinel-agent:dev"
+server_port    = 50051
+agent_replicas = 3
+kube_context   = "minikube"
