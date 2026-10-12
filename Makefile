@@ -1,4 +1,4 @@
-.PHONY: help init plan apply destroy fmt validate lint bootstrap kube-context
+.PHONY: help init plan apply destroy fmt validate lint bootstrap kube-context dashboard status logs-agent logs-server
 
 ENV_DIR := environments/dev
 
@@ -13,6 +13,10 @@ help:
 	@echo "  make lint       - tflint (if installed)"
 	@echo "  make bootstrap  - start Minikube and run full deploy"
 	@echo "  make kube-context - eval Minikube docker-env for local images"
+	@echo "  make dashboard     - port-forward the Sentinel dashboard on :8080 (blocking)"
+	@echo "  make status        - kubectl get pods,svc,configmap in sentinel-system"
+	@echo "  make logs-agent    - tail agent logs"
+	@echo "  make logs-server   - tail server logs"
 
 init:
 	cd $(ENV_DIR) && terraform init
@@ -40,3 +44,17 @@ kube-context:
 
 bootstrap:
 	./scripts/bootstrap.sh
+
+dashboard:
+	@echo "Starting port-forward to Sentinel dashboard..."
+	@echo "Open http://localhost:8080 in your browser. Ctrl+C to stop."
+	kubectl port-forward -n sentinel-system svc/sentinel-server 8080:8080
+
+status:
+	kubectl get pods,svc,configmap -n sentinel-system
+
+logs-agent:
+	kubectl logs -n sentinel-system deploy/sentinel-agent --tail=50 -f
+
+logs-server:
+	kubectl logs -n sentinel-system deploy/sentinel-server --tail=50 -f
