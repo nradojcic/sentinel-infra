@@ -1,6 +1,6 @@
 output "namespace" {
   description = "Namespace where Sentinel is deployed"
-  value       = kubernetes_namespace.sentinel.metadata[0].name
+  value       = kubernetes_namespace_v1.sentinel.metadata[0].name
 }
 
 output "server_service" {

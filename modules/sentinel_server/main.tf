@@ -1,4 +1,4 @@
-resource "kubernetes_deployment" "server" {
+resource "kubernetes_deployment_v1" "server" {
   metadata {
     name      = "sentinel-server"
     namespace = var.namespace
@@ -25,8 +25,8 @@ resource "kubernetes_deployment" "server" {
 
       spec {
         container {
-          name  = "server"
-          image = var.image
+          name              = "server"
+          image             = var.image
           image_pull_policy = "IfNotPresent"
 
           port {
@@ -66,7 +66,7 @@ resource "kubernetes_deployment" "server" {
   }
 }
 
-resource "kubernetes_service" "server" {
+resource "kubernetes_service_v1" "server" {
   metadata {
     name      = "sentinel-server"
     namespace = var.namespace
