@@ -31,6 +31,7 @@ module "sentinel_server" {
   namespace = kubernetes_namespace_v1.sentinel.metadata[0].name
   image     = var.server_image
   port      = var.server_port
+  http_port = var.http_port
 }
 
 module "sentinel_agent" {

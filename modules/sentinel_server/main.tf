@@ -30,8 +30,15 @@ resource "kubernetes_deployment_v1" "server" {
           image_pull_policy = "IfNotPresent"
 
           port {
-            name           = "grpc"
             container_port = var.port
+            name           = "grpc"
+            protocol       = "TCP"
+          }
+
+          port {
+            container_port = var.http_port
+            name           = "http"
+            protocol       = "TCP"
           }
 
           resources {
@@ -81,6 +88,13 @@ resource "kubernetes_service_v1" "server" {
       name        = "grpc"
       port        = var.port
       target_port = var.port
+      protocol    = "TCP"
+    }
+
+    port {
+      name        = "http"
+      port        = var.http_port
+      target_port = var.http_port
       protocol    = "TCP"
     }
 

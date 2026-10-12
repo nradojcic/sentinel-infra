@@ -14,6 +14,12 @@ variable "port" {
   default     = 50051
 }
 
+variable "http_port" {
+  description = "HTTP port to expose for the dashboard"
+  type        = number
+  default     = 8080
+}
+
 variable "replicas" {
   description = "Number of server replicas"
   type        = number

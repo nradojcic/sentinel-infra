@@ -20,6 +20,12 @@ variable "server_port" {
   default     = 50051
 }
 
+variable "http_port" {
+  description = "HTTP port for the Server dashboard"
+  type        = number
+  default     = 8080
+}
+
 variable "agent_replicas" {
   description = "Number of Sentinel agent replicas"
   type        = number
