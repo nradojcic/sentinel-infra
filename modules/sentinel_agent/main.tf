@@ -11,24 +11,6 @@ resource "kubernetes_config_map_v1" "agent_config" {
   }
 }
 
-resource "kubernetes_secret_v1" "agent_secret" {
-  metadata {
-    name      = "sentinel-agent-secret"
-    namespace = var.namespace
-  }
-
-  type = "Opaque"
-
-  data = {
-    # Placeholder — replace with real token provisioning via external secrets
-    SENTINEL_AUTH_TOKEN = "REPLACE_ME"
-  }
-
-  lifecycle {
-    ignore_changes = [data]
-  }
-}
-
 resource "kubernetes_deployment_v1" "agent" {
   metadata {
     name      = "sentinel-agent"
@@ -88,12 +70,6 @@ resource "kubernetes_deployment_v1" "agent" {
           env_from {
             config_map_ref {
               name = kubernetes_config_map_v1.agent_config.metadata[0].name
-            }
-          }
-
-          env_from {
-            secret_ref {
-              name = kubernetes_secret_v1.agent_secret.metadata[0].name
             }
           }
 
