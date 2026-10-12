@@ -40,4 +40,5 @@ module "sentinel_agent" {
   image         = var.agent_image
   replicas      = var.agent_replicas
   server_target = "${module.sentinel_server.service_name}.${kubernetes_namespace_v1.sentinel.metadata[0].name}.svc.cluster.local:${var.server_port}"
+  server_port   = var.server_port
 }

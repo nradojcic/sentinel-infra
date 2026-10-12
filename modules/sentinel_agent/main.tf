@@ -55,6 +55,15 @@ resource "kubernetes_deployment_v1" "agent" {
       }
 
       spec {
+        init_container {
+          name  = "wait-for-server"
+          image = "busybox:1.36"
+          command = [
+            "sh", "-c",
+            "until nc -z sentinel-server ${var.server_port}; do echo waiting for sentinel-server; sleep 2; done"
+          ]
+        }
+
         container {
           name              = "agent"
           image             = var.image

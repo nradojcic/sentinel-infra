@@ -24,3 +24,9 @@ variable "poll_interval_seconds" {
   type        = number
   default     = 5
 }
+
+variable "server_port" {
+  description = "gRPC port of the Sentinel server"
+  type        = number
+  default     = 50051
+}
