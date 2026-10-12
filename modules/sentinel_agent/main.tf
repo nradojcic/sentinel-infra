@@ -58,6 +58,7 @@ resource "kubernetes_deployment" "agent" {
         container {
           name  = "agent"
           image = var.image
+          image_pull_policy = "IfNotPresent"
 
           env_from {
             config_map_ref {

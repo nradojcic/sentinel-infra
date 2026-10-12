@@ -27,6 +27,7 @@ resource "kubernetes_deployment" "server" {
         container {
           name  = "server"
           image = var.image
+          image_pull_policy = "IfNotPresent"
 
           port {
             name           = "grpc"
