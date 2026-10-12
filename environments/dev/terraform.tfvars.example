@@ -1,3 +1,13 @@
+# Local development (Minikube):
+#   Build images into Minikube's daemon first:
+#     eval $(minikube -p minikube docker-env)
+#     (cd ../sentinel && docker build -f Dockerfile.server -t sentinel-server:dev .)
+#     (cd ../sentinel && docker build -f Dockerfile.agent  -t sentinel-agent:dev  .)
+#
+# Registry-based (production-like):
+#   server_image = "ghcr.io/nradojcic/sentinel-server:dev"
+#   agent_image  = "ghcr.io/nradojcic/sentinel-agent:dev"
+
 namespace      = "sentinel-system"
 server_image   = "sentinel-server:dev"
 agent_image    = "sentinel-agent:dev"
